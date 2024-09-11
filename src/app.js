@@ -28,12 +28,12 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
-                  {item.selectionsCount !== undefined
+                  {item.selectionsCount
                     ? item.title + timesClicked(item.selectionsCount)
                     : item.title}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => {e.stopPropagation(); store.deleteItem(item.code)}}>Удалить</button>
                 </div>
               </div>
             </div>
