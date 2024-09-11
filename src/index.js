@@ -1,6 +1,5 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { createElement } from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
