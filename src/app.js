@@ -1,6 +1,7 @@
 import React from 'react';
-import { createElement, timesClicked } from './utils.js';
+import { createElement, getPlural, timesClicked } from './utils.js';
 import './styles.css';
+import { times } from './pluralSuffixies.js';
 
 /**
  * Приложение
@@ -29,7 +30,7 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">
                   {item.selectionsCount
-                    ? item.title + timesClicked(item.selectionsCount)
+                    ? `${item.title} | Выделяли ${item.selectionsCount} ${getPlural(times,item.selectionsCount)}`
                     : item.title}
                 </div>
                 <div className="Item-actions">

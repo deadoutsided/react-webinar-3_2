@@ -41,12 +41,13 @@ export function makeCounter(initialCount = 0) {
 }
 
 /**
- * формирование строки с счетчиком и "раз" в соответствующем цифре падеже
- * @param times {Number} описываемое количество
+ * формирование строки с счетчиком и "раз" в соответствующем цифре склонение
+ * @param suffixes {Map} склонения слова
+ * @param num {Number} число для выбора склонения
  * @returns {String}
  */
-export function timesClicked(times) {
-  if((times % 10 === 2 && times % 100 !== 12) || (times % 10 === 3 && times % 100 !== 13) || (times % 10 === 4 && times % 100 !== 14)) {
-    return ` | Выделяли ${times} раза`
-  } else return ` | Выделяли ${times} раз`;
+export function getPlural(suffixes, num) {
+  const plural = new Intl.PluralRules("ru-RU");
+  const rule = plural.select(num);
+  return suffixes.get(rule);
 }
