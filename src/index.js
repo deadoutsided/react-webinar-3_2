@@ -12,6 +12,8 @@ const store = new Store({
     { code: 5, title: 'Запись' },
     { code: 6, title: 'Шестая запись' },
     { code: 7, title: 'Седьмая запись' },
+    { code: 99, title: '99ая запись' },
+    { code: -1, title: '-1ая запись' },
   ],
 });
 

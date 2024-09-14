@@ -1,12 +1,19 @@
 /**
  * Хранилище состояния приложения
  */
-import { makeCounter } from "./utils";
+import { makeCounter } from './utils';
 class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.itemCount = makeCounter(initState?.list.length + 1);
+    this.itemCount = makeCounter(
+      initState?.list.length
+        ? initState.list.reduce((acc, curr) => {
+            if (acc < curr.code) acc = curr.code + 1;
+            return acc
+          }, 0)
+        : 1,
+    );
   }
 
   /**
@@ -71,7 +78,8 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
-          if(item.selected) item.selectionsCount ? item.selectionsCount++ : item.selectionsCount = 1;
+          if (item.selected)
+            item.selectionsCount ? item.selectionsCount++ : (item.selectionsCount = 1);
         }
         if (item.code !== code && item.selected) {
           item.selected = !item.selected;
