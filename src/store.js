@@ -9,7 +9,7 @@ class Store {
     this.itemCount = makeCounter(
       initState?.list.length
         ? initState.list.reduce((acc, curr) => {
-            if (acc < curr.code) acc = curr.code + 1;
+            if (acc <= curr.code) acc = curr.code + 1;
             return acc
           }, 0)
         : 1,
