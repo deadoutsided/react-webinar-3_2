@@ -1,0 +1,54 @@
+.Modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.Modal_active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.Modal-content {
+  border-radius: 10px;
+  background-color: #FFF;
+  transform: scale(0.5);
+  transition: 0.4s all;
+  max-width: 960px;
+  height: 100%;
+  width: 50%;
+  /* overflow-y: scroll; */
+}
+
+.Modal-content > :nth-child(3){
+  max-height: clamp(10%, 70%, 80%);
+  overflow-y: scroll;
+}
+
+.Modal-content > :nth-child(3)::-webkit-scrollbar {
+  width: 5px;
+}
+
+.Modal-content > :nth-child(3)::-webkit-scrollbar-thumb {
+  background-color: #909090;    /* цвет бегунка */
+  border-radius: 20px;  /* отступ вокруг бегунка */
+}
+
+.Modal-content_active {
+  transform: scale(1);
+}
+
+.Modal-button {
+  position: absolute;
+  top: 30px;
+  left: 90%;
+}

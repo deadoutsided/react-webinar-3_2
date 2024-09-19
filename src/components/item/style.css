@@ -1,12 +1,12 @@
-.Item {
+/* .Item {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  align-items: center;
 }
 
-.Item_selected {
-  background: #75aaf1;
-  color: #fff;
+.Item-price {
+  white-space: nowrap ;
 }
 
 .Item-code {
@@ -22,4 +22,32 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+} */
+.Item {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Item-code {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-price {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 0px;
+  width: 25%;
 }

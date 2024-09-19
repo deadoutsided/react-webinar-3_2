@@ -1,0 +1,15 @@
+.Result {
+  width: 100%;
+  padding: 20px 0 30px 0;
+  background-color: #FFF;
+}
+
+.Result-bold {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.Result-bold:first-of-type {
+  padding-left: 71%;
+  padding-right: 35px;
+}
