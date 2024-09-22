@@ -24,23 +24,9 @@
   transform: scale(0.5);
   transition: 0.4s all;
   max-width: 960px;
-  height: 100%;
+  height: 90%;
   width: 50%;
-  /* overflow-y: scroll; */
-}
-
-.Modal-content > :nth-child(3){
-  max-height: clamp(10%, 70%, 80%);
-  overflow-y: scroll;
-}
-
-.Modal-content > :nth-child(3)::-webkit-scrollbar {
-  width: 5px;
-}
-
-.Modal-content > :nth-child(3)::-webkit-scrollbar-thumb {
-  background-color: #909090;    /* цвет бегунка */
-  border-radius: 20px;  /* отступ вокруг бегунка */
+  overflow-y: hidden;
 }
 
 .Modal-content_active {

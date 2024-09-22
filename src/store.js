@@ -7,8 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.state.cart = this.state.list.map((item) => {
-      return { ...item, count: 0 };
+    this.state.cart = this.state.list.map(item => {
+      return { code: item.code, count: 0 };
     });
     this.state.uniqueProductsCount = new Set();
     this.state.totalPrice = 0;
@@ -52,8 +52,14 @@ class Store {
   addToCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.map((el) => {if(el.code === code) el.count++; return {...el}}),
-      totalPrice: this.state.cart.reduce((acc, el) => acc + (el.price * el.count), 0),
+      cart: this.state.cart.map(el => {
+        if (el.code === code) el.count = el.count + 1;
+        return { ...el };
+      }),
+      totalPrice: this.state.list.reduce(
+        (acc, el) => acc + el.price * this.state.cart.find(e => e.code === el.code).count,
+        0,
+      ),
     });
     this.state.uniqueProductsCount.add(code);
     console.log(this.state);
@@ -63,9 +69,20 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.map((el) => {if(el.code === code) el.count = 0; if(el.code === code && el.count === 0) this.state.uniqueProductsCount.delete(code); return el}),
-      totalPrice: this.state.cart.reduce((acc, el) => acc + (el.price * el.count), 0),
+      cart: this.state.cart.map(el => {
+        if (el.code === code) el.count = 0;
+        if (el.code === code && el.count === 0) this.state.uniqueProductsCount.delete(code);
+        return el;
+      }),
+      totalPrice: this.state.list.reduce(
+        (acc, el) => acc + el.price * this.state.cart.find(e => e.code === el.code).count,
+        0,
+      ),
     });
+  }
+
+  findCartItem(cartItem) {
+    return { ...this.state.list.find(el => el.code === cartItem.code), count: cartItem.count };
   }
 }
 

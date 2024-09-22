@@ -4,6 +4,9 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Cart from './components/cart';
+import Modal from './components/modal';
+import Item from './components/item';
+import CartItem from './components/cart-item';
 
 /**
  * Приложение
@@ -31,26 +34,54 @@ function App({ store }) {
       },
       [store],
     ),
+    renderListItems: useCallback(
+      (item, cn) => {
+        return (
+          <div key={item.code} className={cn('item')}>
+            <Item item={item} action={callbacks.addToCart} />
+          </div>
+        );
+      },
+      [store],
+    ),
+    renderCartItems: useCallback(
+      (item, cn) => {
+        if (item.count)
+          return (
+            <div key={item.code} className={cn('item')}>
+              <CartItem item={store.findCartItem(item)} action={callbacks.deleteFromCart} />
+            </div>
+          );
+      },
+      [store],
+    ),
   };
 
   return (
     <PageLayout>
-      <Head title="Приложение на чистом JS" />
-      <Controls totalPrice={totalPrice} uniqueItems={uniqueItems} action={() => setModalOpen(prev => !prev)} />
-      <List
-        list={list}
-        action={callbacks.addToCart}
-      />
-      <Cart
-        modalOpen={modalOpen}
-        setModalOpen={() => {setModalOpen(prev => !prev); console.log(modalOpen)}}
-        title={"Корзина"}
-        list={cart}
-        type={'cart'}
+      <Head title="Магазин" />
+      <Controls
         totalPrice={totalPrice}
         uniqueItems={uniqueItems}
-        action={callbacks.deleteFromCart}
+        action={() => setModalOpen(prev => !prev)}
       />
+      <List list={list} action={callbacks.addToCart} renderFunc={callbacks.renderListItems} />
+      <Modal
+        active={modalOpen}
+        setModalOpen={() => {
+          setModalOpen(prev => !prev);
+          console.log(modalOpen);
+        }}
+      >
+        <Cart
+          title={'Корзина'}
+          list={cart}
+          totalPrice={totalPrice}
+          uniqueItems={uniqueItems}
+          action={callbacks.deleteFromCart}
+          renderFunc={callbacks.renderCartItems}
+        />
+      </Modal>
     </PageLayout>
   );
 }

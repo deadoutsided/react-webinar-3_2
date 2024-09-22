@@ -1,6 +1,25 @@
 .List {
 }
 
+.List_extraCn_scrollable {
+  max-height: 65%;
+  overflow-y: scroll;
+  margin-top: auto;
+}
+
+.List_extraCn_scrollable > .List-item:first-child {
+  border-top: 1px dashed #ccc;
+}
+
+.List_extraCn_scrollable::-webkit-scrollbar {
+  width: 5px;
+}
+
+.List_extraCn_scrollable::-webkit-scrollbar-thumb {
+  background-color: #909090;    /* цвет бегунка */
+  border-radius: 20px;  /* отступ вокруг бегунка */
+}
+
 .List-item {
   border-bottom: 1px dashed #ccc;
 }

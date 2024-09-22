@@ -1,25 +1,25 @@
-.Item {
+.CartItem {
   display: flex;
   justify-content: flex-start;
 }
 
-.Item-code {
+.CartItem-code {
   padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.CartItem-title {
   width: 100%;
   padding: 20px 10px;
 }
 
-.Item-actions {
+.CartItem-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 20px 20px 20px 25px;
 }
 
-.Item-price {
+.CartItem-price {
   display: flex;
   justify-content: flex-end;
   align-items: center;

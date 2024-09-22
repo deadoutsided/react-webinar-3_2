@@ -1,9 +1,10 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  border-radius: inherit inherit 0 0;
 }
 
 .Head h1 {
   margin: 0;
-  padding: 20px 20px 10px;
+  padding: 20px 20px 20px;
 }
