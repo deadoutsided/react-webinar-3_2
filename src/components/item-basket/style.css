@@ -13,6 +13,13 @@
 .ItemBasket-title {
   width: 100%;
   padding: 20px 10px;
+  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+}
+
+.ItemBasket-title:hover {
+  text-decoration: underline;
 }
 
 .ItemBasket-right {

@@ -1,0 +1,21 @@
+.ProductData {
+  padding: 0 40px;
+}
+
+.ProductData-text:first-child {
+  margin: 20px 0px 20px;
+}
+
+.ProductData-text {
+  margin: 0px 0px 20px;
+}
+
+.ProductData-text_highlighted {
+  font-weight: 700;
+}
+
+.ProductData-price {
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0px 0px 20px;
+}

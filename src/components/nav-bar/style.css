@@ -1,0 +1,8 @@
+.NavBar {
+  padding: 20px;
+  display: flex;
+}
+
+.NavBar-link:visited {
+  color: #0087E9;
+}

@@ -17,6 +17,13 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+}
+
+.Item-title:hover {
+  text-decoration: underline;
 }
 
 .Item-actions {
