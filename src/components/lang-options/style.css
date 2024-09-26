@@ -1,0 +1,23 @@
+.LangOptions {
+  display: flex;
+  margin: auto 0;
+  column-gap: 20px;
+}
+
+.LangOptions-option {
+
+}
+
+.LangOptions-option:hover {
+  color: #383535;
+  cursor: pointer;
+}
+
+.LangOptions-option_selected:hover {
+  color: #000;
+  cursor: default;
+}
+
+.LangOptions-option_selected {
+  text-decoration: underline;
+}

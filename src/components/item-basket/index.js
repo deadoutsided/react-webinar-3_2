@@ -1,10 +1,11 @@
 import { memo, useCallback } from 'react';
 import propTypes from 'prop-types';
-import { numberFormat } from '../../utils';
+import { numberFormat, plural } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 import { Link } from 'react-router-dom';
+import useI18n from '../../store/language/use-i18n';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -13,9 +14,10 @@ function ItemBasket(props) {
     onRemove: e => props.onRemove(props.item._id),
   };
 
+  const t = useI18n()
+
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
         <Link
           onClick={props.onClick}
           to={`/products/${props.linkTo ? props.linkTo : props.item._id}`}
@@ -25,9 +27,9 @@ function ItemBasket(props) {
         </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {t.lang === 'ru-RU' ? t.t('productsCount') : plural(props.item.amount, t.t('productsCount'))}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{t.t('deleteButton')}</button>
         </div>
       </div>
     </div>

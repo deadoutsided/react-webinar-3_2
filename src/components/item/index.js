@@ -4,10 +4,13 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 import { Link } from "react-router-dom";
+import useI18n from "../../store/language/use-i18n";
 
 function Item(props) {
 
   const cn = bem('Item');
+
+  const t = useI18n()
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
@@ -15,13 +18,12 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
         <Link to={`/products/${props.linkTo ? props.linkTo : props.item._id}`} className={cn('title')}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{'addBtn'/* props.translate('addButton') */}</button>
+        <button onClick={callbacks.onAdd}>{t.t('addButton')}</button>
       </div>
     </div>
   );
