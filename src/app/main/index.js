@@ -62,7 +62,7 @@ function Main() {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} linkTo={item._id} onAdd={callbacks.addToBasket} />;
+        return <Item item={item} linkTo={undefined} onAdd={callbacks.addToBasket} />;
       },
       [callbacks.addToBasket],
     ),

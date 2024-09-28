@@ -19,7 +19,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={`/products/${props.linkTo ? props.linkTo : props.item._id}`} className={cn('title')}>{props.item.title}</Link>
+        <Link to={props.linkTo ? props.linkTo : `/products/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -35,6 +35,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  link: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
