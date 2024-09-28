@@ -3,13 +3,17 @@ import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import { formPaginationArr } from "../../utils";
 import { Link } from "react-router-dom";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
-export function ArticlesNav({ pages, current }) {
+export function ArticlesNav({ items, current }) {
+
+  const calculations = {
+    pages: useMemo(() => Math.ceil(items / 10), [items]),
+  };
   const cn = bem("ArticlesNav");
   return (
     <div className={cn()}>
-      {formPaginationArr(pages, current).map((e, index) => {
+      {formPaginationArr(calculations.pages, current).map((e, index) => {
         return (
           <div
             key={index}

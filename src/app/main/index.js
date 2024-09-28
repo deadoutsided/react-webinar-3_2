@@ -10,14 +10,16 @@ import ArticlesNav from '../../components/articles-nav';
 import { useParams } from 'react-router-dom';
 import LangOptions from '../../components/lang-options';
 import useI18n from '../../store/language/use-i18n';
-
+import { NavBar } from '../../components/nav-bar';
+import { links } from '../../constants.js';
+import { NavToolWrap } from '../../components/nav-tool-wrap/index.js';
 
 function Main() {
   const store = useStore();
 
   const params = useParams();
 
-  const t = useI18n()
+  const t = useI18n();
 
   useEffect(() => {
     const query = params.current
@@ -31,7 +33,14 @@ function Main() {
   }, [params.current]);
 
   useEffect(() => {
-    store.actions.catalog.load();
+    const query = params.current
+      ? {
+          limit: 1,
+          skip: params.current,
+          fields: 'items(_id, title, price),count',
+        }
+      : null;
+    store.actions.catalog.load(query);
   }, []);
 
   const select = useSelector(state => ({
@@ -41,10 +50,6 @@ function Main() {
     productsCount: state.catalog.productsCount,
     langCode: state.language.currentLanguage,
   }));
-
-  const calculations = {
-    pages: useMemo(() => Math.ceil(select.productsCount / 10), [select.productsCount]),
-  };
 
   const callbacks = {
     // Добавление в корзину
@@ -68,9 +73,12 @@ function Main() {
       <Head title={t.t('mainTitle')}>
         <LangOptions lang={select.langCode} changeLang={callbacks.changeLang} />
       </Head>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <NavToolWrap>
+        <NavBar links={links} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </NavToolWrap>
       <List list={select.list} renderItem={renders.item} />
-      <ArticlesNav pages={calculations.pages} current={params.current ? +params.current : 1} />
+      <ArticlesNav items={select.productsCount} current={params.current ? +params.current : 1} />
     </PageLayout>
   );
 }
