@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Select(props) {
+  const  {onChange = () => {}, ...restProps} = props
+
   const onSelect = e => {
     props.onChange(e.target.value);
   };
@@ -29,8 +31,8 @@ Select.propTypes = {
   onChange: PropTypes.func,
 };
 
-Select.defaultProps = {
+/* Select.defaultProps = {
   onChange: () => {},
-};
+}; */
 
 export default memo(Select);

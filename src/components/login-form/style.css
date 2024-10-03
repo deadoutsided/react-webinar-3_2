@@ -1,0 +1,22 @@
+.loginForm {
+  padding: 20px;
+}
+
+.loginForm-title {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.loginForm-text {
+  font-size: 16px;
+  margin: 0;
+}
+
+.loginForm-text_error{
+  color: red;
+  margin: 0 0 20px;
+}
+
+.loginForm-input {
+  margin: 0 0 20px;
+}

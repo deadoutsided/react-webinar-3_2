@@ -15,6 +15,6 @@ Spinner.propTypes = {
   children: PropTypes.node,
 };
 
-Spinner.defaultProps = {};
+/* Spinner.defaultProps = {}; */
 
 export default memo(Spinner);

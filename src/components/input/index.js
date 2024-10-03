@@ -6,6 +6,11 @@ import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
+  const {
+    type = 'text',
+    theme = '',
+    ...resProps
+  } = props;
   // Внутренний стейт для быстрого отображения ввода
   const [value, setValue] = useState(props.value);
 
@@ -44,10 +49,10 @@ Input.propTypes = {
   theme: PropTypes.string,
 };
 
-Input.defaultProps = {
+/* Input.defaultProps = {
   onChange: () => {},
   type: 'text',
   theme: '',
-};
+}; */
 
 export default memo(Input);

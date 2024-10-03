@@ -1,0 +1,19 @@
+.headLogin {
+  border-bottom: 1px solid #DCDCDC;
+}
+.headLogin-button{
+  margin: 10px 20px;
+  padding: 0px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.headLogin-button_logout {
+  padding: 1px 6px;
+}
+.headLogin-text{
+  text-decoration: none;
+  color: #000;
+  padding: 1px 6px;
+  display: block;
+}

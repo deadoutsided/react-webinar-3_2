@@ -6,6 +6,12 @@ import './style.css';
 import { Link } from 'react-router-dom';
 
 function Item(props) {
+  const {
+    onAdd = () => {},
+    labelCurr = '₽',
+    labelAdd = 'Добавить',
+    ...resProps
+  } = props;
   const cn = bem('Item');
 
   const callbacks = {
@@ -40,10 +46,10 @@ Item.propTypes = {
   labelAdd: PropTypes.string,
 };
 
-Item.defaultProps = {
+/* Item.defaultProps = {
   onAdd: () => {},
   labelCurr: '₽',
   labelAdd: 'Добавить',
-};
+}; */
 
 export default memo(Item);

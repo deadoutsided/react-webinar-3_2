@@ -1,0 +1,16 @@
+.Profile {
+  padding: 20px;
+}
+
+.Profile-title {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.Profile-text {
+  font-size: 18px;
+}
+
+.Profile-text_bold {
+  font-weight: 700;
+}

@@ -22,6 +22,6 @@ SideLayout.propTypes = {
   padding: PropTypes.oneOf(['small', 'medium']),
 };
 
-SideLayout.defaultProps = {};
+/* SideLayout.defaultProps = {}; */
 
 export default memo(SideLayout);
