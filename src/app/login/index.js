@@ -19,10 +19,10 @@ function Login() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    auth: state.user.auth,
-    error: state.user.error,
-    user: state.user.user,
-    userDataLoading: state.user.userDataLoading,
+    auth: state.session.auth,
+    error: state.session.error,
+    user: state.profile.user,
+    userDataLoading: state.session.userDataLoading,
   }));
 
   const [login, setLogin] = useState('');
@@ -37,21 +37,21 @@ function Login() {
     }, []),
     onSubmit: useCallback(
       (log, pass) => {
-        store.actions.user.signin(log, pass);
+        store.actions.session.signin(log, pass);
       },
       [store],
     ),
     onLoguot: useCallback(() => {
-      store.actions.user.logout();
+      store.actions.session.logout();
     }, [store]),
     checkAuth: useCallback(
       mode => {
-        store.actions.user.getUserData(mode);
+        store.actions.profile.getUserData(mode);
       },
       [store],
     ),
     clearError: useCallback(() => {
-      store.actions.user.clearErrorMessage();
+      store.actions.session.clearErrorMessage();
     }, [store]),
   };
 

@@ -18,13 +18,13 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   const selected = useSelector(state => ({
-    auth: state.user.auth,
-    userDataLoading: state.user.userDataLoading,
+    auth: state.session.auth,
+    userDataLoading: state.session.userDataLoading,
   }));
   const callbacks = {
     getUserData: useCallback(
       mode => {
-        store.actions.user.getUserData(mode);
+        store.actions.profile.getUserData(mode);
       },
       [store],
     ),

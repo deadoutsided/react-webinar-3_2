@@ -46,14 +46,15 @@ function CatalogFilter() {
       title: "Все",
       parent: null,
       name: "",
-    }]))
+    }])),
+    categoriesArr: useMemo(() => formCategoriesArr(select.categories), [select.categories])
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
-      <Select options={formCategoriesArr(select.categories)} value={select.category} onChange={callbacks.onSetCategory}/>
+      <Select options={options.categoriesArr} value={select.category} onChange={callbacks.onSetCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
         value={select.query}

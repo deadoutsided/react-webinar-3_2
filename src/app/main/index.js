@@ -26,17 +26,17 @@ function Main() {
   );
 
   const select = useSelector(state => ({
-    auth: state.user.auth,
-    error: state.user.error,
-    username: state.user.user.name,
+    auth: state.session.auth,
+    error: state.session.error,
+    username: state.profile.user.name,
   }));
 
   const callbacks = {
     onLoguot: useCallback(() => {
-      store.actions.user.logout();
+      store.actions.session.logout();
     }, [store]),
     clearError: useCallback(() => {
-      store.actions.user.clearErrorMessage();
+      store.actions.session.clearErrorMessage();
     }, [store]),
   };
 
