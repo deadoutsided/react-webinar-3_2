@@ -78,8 +78,7 @@ function Login() {
         auth={select.auth}
         onClick={callbacks.onLoguot}
         username={select.user.name}
-        logoutButtonLabel={t('profile.logoutButton')}
-        loginButtonLabel={t('profile.loginButton')}
+        t={t}
       />
       <Head title={t('title')}>
         <LocaleSelect />
@@ -92,10 +91,7 @@ function Login() {
             setLogin={setLogin}
             setPassword={setPassword}
             onSubmit={callbacks.onSubmit}
-            loginButtonLabel={t("login.button")}
-            title={t("login.title")}
-            loginInputLabel={t("login.input.label")}
-            passwordInputLabel={t("login.password.label")}
+            t={t}
             error={select.error}
             auth={select.auth}
             login={login}

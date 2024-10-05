@@ -17,11 +17,11 @@ function HeadLogin(props) {
       <SideLayout side="end">
         <Link to="/profile">{props.username}</Link>
         {props.auth ? (
-          <button className={cn("button", {logout: true})} onClick={props.onClick}>{props.logoutButtonLabel}</button>
+          <button className={cn("button", {logout: true})} onClick={props.onClick}>{props.t('profile.logoutButton')}</button>
         ) : (
           <button className={cn("button")}>
             <Link to="/login" className={cn("text")} state={'smth'}>
-              {props.loginButtonLabel}
+              {props.t('profile.loginButton')}
             </Link>
           </button>
         )}

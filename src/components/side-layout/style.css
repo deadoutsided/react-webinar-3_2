@@ -31,3 +31,7 @@
 .SideLayout-item {
   margin: 0 5px;
 }
+
+.SideLayout-item:nth-of-type(3) > .Input {
+  width: 300px;
+}

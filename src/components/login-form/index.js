@@ -23,11 +23,11 @@ function LoginForm(props) {
 
   return (
     <div className={cn()}>
-      <p className={cn('title')}>{props.title}</p>
+      <p className={cn('title')}>{props.t("login.title")}</p>
       <div className={cn('container')}>
-        <p className={cn('text')}>{props.loginInputLabel}</p>
+        <p className={cn('text')}>{props.t("login.input.label")}</p>
         <Input type="text" theme={'form'} value={props.login} onChange={callbacks.loginOnChange} />
-        <p className={cn('text')}>{props.passwordInputLabel}</p>
+        <p className={cn('text')}>{props.t("login.password.label")}</p>
         <Input
           type="password"
           theme={'form'}
@@ -37,7 +37,7 @@ function LoginForm(props) {
         {props.error && <p className={cn('text', { error: true })}>{props.error.message}</p>}
       </div>
       <button onClick={() => callbacks.onSubmit(props.login, props.password)}>
-        {props.loginButtonLabel}
+        {props.t("login.button")}
       </button>
     </div>
   );

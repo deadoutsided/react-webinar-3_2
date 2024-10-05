@@ -42,7 +42,7 @@ function App() {
         <Route path={"/login"} element={<Login />} />
         <Route
           path={"/profile"}
-          element={<ProtectedRouteElement auth={selected.auth} element={<Login />}/>}
+          element={<ProtectedRouteElement auth={selected.auth} element={<Login />} to={'/login'}/>}
         />
       </Routes>
 

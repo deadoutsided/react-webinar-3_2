@@ -1,8 +1,6 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-export function ProtectedRouteElement({element, auth}){
-  const {pathname} = useLocation();
-  const url = window.location.href;
+export function ProtectedRouteElement({element, auth, to}){
 
-  return auth ? element : <Navigate to={'/login'} replace/>
+  return auth ? element : <Navigate to={to} replace/>
 }

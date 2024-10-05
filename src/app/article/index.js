@@ -49,8 +49,7 @@ function Article() {
         auth={select.auth}
         onClick={callbacks.onLoguot}
         username={select.username}
-        logoutButtonLabel={t('profile.logoutButton')}
-        loginButtonLabel={t('profile.loginButton')}
+        t={t}
       />
       <Head title={select.article.title}>
         <LocaleSelect />

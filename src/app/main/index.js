@@ -53,8 +53,7 @@ function Main() {
         auth={select.auth}
         onClick={callbacks.onLoguot}
         username={select.username}
-        logoutButtonLabel={t('profile.logoutButton')}
-        loginButtonLabel={t('profile.loginButton')}
+        t={t}
       />
       <Head title={t('title')}>
         <LocaleSelect />
