@@ -3,9 +3,8 @@ import StoreModule from "../module";
 class SessionState extends StoreModule {
   initState() {
     return {
-      auth: false,
       error: null,
-      userDataLoading: true,
+      sessionDataLoading: false,
     };
   }
 
@@ -19,9 +18,7 @@ class SessionState extends StoreModule {
       {
         ...this.getState(),
         error: null,
-        user: {},
-        auth: false,
-        userDataLoading: false,
+        sessionDataLoading: true,
       },
       "Обновление данных перед запросом на авторизацию"
     );
@@ -45,7 +42,7 @@ class SessionState extends StoreModule {
       this.setState({
         ...this.getState(),
         error: null,
-        auth: true,
+        sessionDataLoading: false,
       });
 
       localStorage.setItem("token", await json.result.token);
@@ -53,7 +50,7 @@ class SessionState extends StoreModule {
       this.setState({
         ...this.getState(),
         error: e,
-        auth: false,
+        sessionDataLoading: false,
       });
     }
   }
@@ -61,7 +58,14 @@ class SessionState extends StoreModule {
   /**
    * Запрос на удаление токена пользователя
    */
-  async logout() {
+  async logout() {this.setState(
+    {
+      ...this.getState(),
+      error: null,
+      sessionDataLoading: true,
+    },
+    "Обновление данных перед запросом на выход с аккаунта"
+  );
     try {
       if (!localStorage.getItem("token")) {
         console.log("something gone wrong");
@@ -82,14 +86,13 @@ class SessionState extends StoreModule {
       this.setState({
         ...this.getState(),
         error: null,
-        user: {},
-        auth: false,
+        sessionDataLoading: false,
       });
     } catch (e) {
       this.setState({
         ...this.getState(),
         error: e,
-        auth: localStorage.getItem("token") ? true : false,
+        sessionDataLoading: false,
       });
     }
   }
@@ -98,7 +101,7 @@ class SessionState extends StoreModule {
     this.setState({
       ...this.getState(),
       error: null
-    })
+    }, 'Отчистка поля ошибки сессии')
   }
 }
 

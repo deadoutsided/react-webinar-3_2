@@ -4,6 +4,9 @@ class ProfileState extends StoreModule {
   initState() {
     return {
       user: {},
+      auth: localStorage.getItem("token") ? true : false,
+      userDataLoading: false,
+      error: null,
     };
   }
 
@@ -14,7 +17,7 @@ class ProfileState extends StoreModule {
     this.setState({
       ...this.getState(),
       userDataLoading: true,
-    });
+    }, 'сброс данных перед запросом пользователя');
     try {
       if (!localStorage.getItem("token")) {
         console.log("No token stored");
@@ -45,7 +48,7 @@ class ProfileState extends StoreModule {
         },
         auth: true,
         userDataLoading: false,
-      });
+      }, 'Установка данных пользователя');
     } catch (e) {
       localStorage.clear();
       this.setState({
@@ -54,7 +57,7 @@ class ProfileState extends StoreModule {
         auth: false,
         userDataLoading: false,
         user: {},
-      });
+      }, 'Ошибка во время запроса пользователя');
     }
   }
 }

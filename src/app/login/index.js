@@ -9,7 +9,7 @@ import HeadLogin from '../../components/head-login';
 import LoginForm from '../../components/login-form';
 import useSelector from '../../hooks/use-selector';
 import Profile from '../../components/profile';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Spinner from '../../components/spinner';
 
 /**
@@ -18,11 +18,15 @@ import Spinner from '../../components/spinner';
 function Login() {
   const store = useStore();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const select = useSelector(state => ({
-    auth: state.session.auth,
+    auth: state.profile.auth,
     error: state.session.error,
     user: state.profile.user,
-    userDataLoading: state.session.userDataLoading,
+    userDataLoading: state.profile.userDataLoading,
+    sessionDataLoading: state.session.sessionDataLoading,
   }));
 
   const [login, setLogin] = useState('');
@@ -36,13 +40,15 @@ function Login() {
       setPassword(pass);
     }, []),
     onSubmit: useCallback(
-      (log, pass) => {
-        store.actions.session.signin(log, pass);
+      async (log, pass) => {
+        await store.actions.session.signin(log, pass);
+        await store.actions.profile.getUserData();
       },
       [store],
     ),
-    onLoguot: useCallback(() => {
-      store.actions.session.logout();
+    onLoguot: useCallback(async() => {
+      await store.actions.session.logout();
+      await store.actions.profile.getUserData();
     }, [store]),
     checkAuth: useCallback(
       mode => {
@@ -56,10 +62,14 @@ function Login() {
   };
 
   useEffect(() => {
-    callbacks.checkAuth();
+    //callbacks.checkAuth();
     callbacks.clearError();
   }, []);
-
+  useEffect(() => {
+    if(select.auth && location.state) {navigate(-1);
+    console.log('back')}
+  }, [select.auth])
+  console.log(location)
   const { t } = useTranslate();
 
   return (
@@ -75,9 +85,9 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      {select.auth && <Navigate to="/profile" />}
+      {select.auth && location.state === null && <Navigate to="/profile" />} {/* <Navigate to="/profile" /> */}
       {select.auth !== true ? (
-        <Spinner active={select.userDataLoading}>
+        <Spinner active={select.sessionDataLoading}>
           <LoginForm
             setLogin={setLogin}
             setPassword={setPassword}
@@ -87,7 +97,7 @@ function Login() {
             loginInputLabel={t("login.input.label")}
             passwordInputLabel={t("login.password.label")}
             error={select.error}
-            auth={select.userDataLoading}
+            auth={select.auth}
             login={login}
             password={password}
           />

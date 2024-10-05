@@ -1,11 +1,8 @@
 import { Navigate, useLocation } from "react-router-dom";
 
-export function ProtectedRouteElement({element, auth, loading, checkAuth}){
+export function ProtectedRouteElement({element, auth}){
   const {pathname} = useLocation();
   const url = window.location.href;
-  /* useEffect(() => {
-    checkAuth()
-  }, []); */
 
-  return (auth || loading) ? element : <Navigate to={'/login'} replace state={{path: pathname, url, title: 'destination'}}/>
+  return auth ? element : <Navigate to={'/login'} replace/>
 }

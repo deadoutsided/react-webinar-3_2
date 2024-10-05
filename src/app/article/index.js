@@ -28,8 +28,8 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    auth: state.user.auth,
-    username: state.user.user.name,
+    auth: state.profile.auth,
+    username: state.profile.user.name,
   }));
 
   const { t } = useTranslate();
@@ -37,8 +37,9 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onLoguot: useCallback(() => {
-      store.actions.user.logout();
+    onLoguot: useCallback(async() => {
+      await store.actions.session.logout();
+      await store.actions.profile.getUserData();
     }, [store]),
   };
 

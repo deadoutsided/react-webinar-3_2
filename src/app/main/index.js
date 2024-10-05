@@ -26,14 +26,15 @@ function Main() {
   );
 
   const select = useSelector(state => ({
-    auth: state.session.auth,
+    auth: state.profile.auth,
     error: state.session.error,
     username: state.profile.user.name,
   }));
 
   const callbacks = {
-    onLoguot: useCallback(() => {
-      store.actions.session.logout();
+    onLoguot: useCallback(async () => {
+      await store.actions.session.logout();
+      await store.actions.profile.getUserData();
     }, [store]),
     clearError: useCallback(() => {
       store.actions.session.clearErrorMessage();

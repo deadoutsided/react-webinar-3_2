@@ -20,7 +20,7 @@ function HeadLogin(props) {
           <button className={cn("button", {logout: true})} onClick={props.onClick}>{props.logoutButtonLabel}</button>
         ) : (
           <button className={cn("button")}>
-            <Link to="/login" className={cn("text")}>
+            <Link to="/login" className={cn("text")} state={'smth'}>
               {props.loginButtonLabel}
             </Link>
           </button>

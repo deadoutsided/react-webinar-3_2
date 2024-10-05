@@ -18,13 +18,13 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   const selected = useSelector(state => ({
-    auth: state.session.auth,
-    userDataLoading: state.session.userDataLoading,
+    auth: state.profile.auth,
+    userDataLoading: state.profile.userDataLoading,
   }));
   const callbacks = {
     getUserData: useCallback(
-      mode => {
-        store.actions.profile.getUserData(mode);
+      async mode => {
+        await store.actions.profile.getUserData(mode);
       },
       [store],
     ),
@@ -42,7 +42,7 @@ function App() {
         <Route path={"/login"} element={<Login />} />
         <Route
           path={"/profile"}
-          element={<ProtectedRouteElement auth={selected.auth} loading={selected.userDataLoading} checkAuth={callbacks.getUserData} element={<Login />}/>}
+          element={<ProtectedRouteElement auth={selected.auth} element={<Login />}/>}
         />
       </Routes>
 
