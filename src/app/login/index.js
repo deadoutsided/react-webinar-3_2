@@ -11,6 +11,7 @@ import useSelector from '../../hooks/use-selector';
 import Profile from '../../components/profile';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Spinner from '../../components/spinner';
+import HeadLoginWrapper from '../../containers/head-login-wrapper';
 
 /**
  * страница входа в профиль
@@ -22,7 +23,7 @@ function Login() {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    auth: state.profile.auth,
+    auth: state.session.auth,
     error: state.session.error,
     user: state.profile.user,
     userDataLoading: state.profile.userDataLoading,
@@ -42,17 +43,15 @@ function Login() {
     onSubmit: useCallback(
       async (log, pass) => {
         await store.actions.session.signin(log, pass);
-        await store.actions.profile.getUserData();
       },
       [store],
     ),
     onLoguot: useCallback(async() => {
       await store.actions.session.logout();
-      await store.actions.profile.getUserData();
     }, [store]),
     checkAuth: useCallback(
-      mode => {
-        store.actions.profile.getUserData(mode);
+      async () => {
+        await store.actions.session.checkAuth();
       },
       [store],
     ),
@@ -62,24 +61,18 @@ function Login() {
   };
 
   useEffect(() => {
-    //callbacks.checkAuth();
+    callbacks.checkAuth();
     callbacks.clearError();
   }, []);
   useEffect(() => {
     if(select.auth && location.state) {navigate(-1);
     console.log('back')}
   }, [select.auth])
-  console.log(location)
   const { t } = useTranslate();
 
   return (
     <PageLayout>
-      <HeadLogin
-        auth={select.auth}
-        onClick={callbacks.onLoguot}
-        username={select.user.name}
-        t={t}
-      />
+      <HeadLoginWrapper />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

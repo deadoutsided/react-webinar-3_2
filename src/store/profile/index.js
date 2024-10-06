@@ -4,7 +4,6 @@ class ProfileState extends StoreModule {
   initState() {
     return {
       user: {},
-      auth: localStorage.getItem("token") ? true : false,
       userDataLoading: false,
       error: null,
     };
@@ -46,7 +45,6 @@ class ProfileState extends StoreModule {
           phone: json.result.profile.phone,
           email: json.result.email,
         },
-        auth: true,
         userDataLoading: false,
       }, 'Установка данных пользователя');
     } catch (e) {
@@ -54,7 +52,6 @@ class ProfileState extends StoreModule {
       this.setState({
         ...this.getState(),
         error: e,
-        auth: false,
         userDataLoading: false,
         user: {},
       }, 'Ошибка во время запроса пользователя');

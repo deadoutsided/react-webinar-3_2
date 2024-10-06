@@ -10,7 +10,7 @@ import Navigation from '../../containers/navigation';
 import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
-import HeadLogin from '../../components/head-login';
+import HeadLoginWrapper from '../../containers/head-login-wrapper';
 
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
@@ -28,8 +28,6 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    auth: state.profile.auth,
-    username: state.profile.user.name,
   }));
 
   const { t } = useTranslate();
@@ -37,20 +35,11 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    onLoguot: useCallback(async() => {
-      await store.actions.session.logout();
-      await store.actions.profile.getUserData();
-    }, [store]),
   };
 
   return (
     <PageLayout>
-      <HeadLogin
-        auth={select.auth}
-        onClick={callbacks.onLoguot}
-        username={select.username}
-        t={t}
-      />
+      <HeadLoginWrapper/>
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

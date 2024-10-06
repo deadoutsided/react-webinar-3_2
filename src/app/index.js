@@ -18,20 +18,20 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   const selected = useSelector(state => ({
-    auth: state.profile.auth,
-    userDataLoading: state.profile.userDataLoading,
+    auth: state.session.auth,
+    userDataLoading: state.session.sessionDataLoading,
   }));
   const callbacks = {
-    getUserData: useCallback(
-      async mode => {
-        await store.actions.profile.getUserData(mode);
+    checkAuth: useCallback(
+      async () => {
+        await store.actions.session.checkAuth();
       },
       [store],
     ),
   };
 
   useEffect(() => {
-    callbacks.getUserData('No error');
+    callbacks.checkAuth('No error');
   }, []);
 
   return (

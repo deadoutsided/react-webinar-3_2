@@ -5,7 +5,47 @@ class SessionState extends StoreModule {
     return {
       error: null,
       sessionDataLoading: false,
+      auth: false,
     };
+  }
+
+  async checkAuth() {
+    this.setState({
+      ...this.getState(),
+      sessionDataLoading: true,
+    }, 'сброс данных перед запросом статуса авторизации');
+    try {
+      if (!localStorage.getItem("token")) {
+        console.log("No token stored");
+      }
+      const res = await fetch(
+        "api/v1/users/self?fields=_id",
+        {
+          headers: {
+            "X-Token": localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) {
+        const json = await res.json()
+        throw new Error(json.error.data.issues[0].message);
+      }
+      this.setState({
+        ...this.getState(),
+        error: null,
+        auth: true,
+        sessionDataLoading: false,
+      }, 'Установка статуса авторизации пользователя');
+    } catch (e) {
+      localStorage.clear();
+      this.setState({
+        ...this.getState(),
+        /* error: e, */
+        auth: false,
+        sessionDataLoading: false,
+      }, 'Ошибка во время запроса "статуса авторизации(_id)" пользователя');
+    }
   }
 
   /**
@@ -46,6 +86,7 @@ class SessionState extends StoreModule {
       });
 
       localStorage.setItem("token", await json.result.token);
+      await this.checkAuth();
     } catch (e) {
       this.setState({
         ...this.getState(),
@@ -88,6 +129,7 @@ class SessionState extends StoreModule {
         error: null,
         sessionDataLoading: false,
       });
+      await this.checkAuth();
     } catch (e) {
       this.setState({
         ...this.getState(),
