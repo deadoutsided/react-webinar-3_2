@@ -17,6 +17,7 @@ class SessionState extends StoreModule {
     try {
       if (!localStorage.getItem("token")) {
         console.log("No token stored");
+        throw new Error('No token')
       }
       const res = await fetch(
         "api/v1/users/self?fields=_id",

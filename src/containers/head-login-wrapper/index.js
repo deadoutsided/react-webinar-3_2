@@ -4,9 +4,6 @@ import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import HeadLogin from '../../components/head-login';
 
-/**
- * Страница товара с первичной загрузкой товара по id из url адреса
- */
 function headLoginWrapper() {
   const store = useStore();
 
