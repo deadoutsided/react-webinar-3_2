@@ -11,6 +11,5 @@ export default function treeToList(tree, callback, level = 0, result = []) {
     result.push(callback ? callback(item, level) : item);
     if (item.children?.length) treeToList(item.children, callback, level + 1, result);
   }
-  console.log(result)
   return result;
 }

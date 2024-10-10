@@ -26,7 +26,6 @@ function Articles() {
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  console.log(select.state);
   const { t } = useTranslate();
 
   const callbacks = {

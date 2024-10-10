@@ -44,7 +44,6 @@ export default {
     return async (dispatch, getState, services) => {
       dispatch({ type: "comment/send-start" });
       let parent = {};
-      console.log(profile);
       if (currItem !== article._id && currItem !== undefined) {
         parent = {
           _id: list[list.findIndex((el) => el._id === currItem)]._id,
@@ -62,12 +61,10 @@ export default {
           body: JSON.stringify({ text: newCommentData.text, parent: parent }),
         });
         // коммент загружен успешно
-        console.log(res.data.result)
         dispatch({
           type: "comment/send-success",
           payload: { data: {...res.data.result, level, author: {...res.data.result.author, profile}, } },
         });
-        console.log('SHOULD WORK')
       } catch (e) {
         //Ошибка загрузки
         dispatch({ type: "comment/send-error" });

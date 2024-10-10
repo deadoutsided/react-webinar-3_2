@@ -32,7 +32,6 @@ function Comments() {
     onItemClick: useCallback(
       (level, id) => {
         dispatch(commentsActions.addForm(level, id));
-        console.log(ref.current);
         setTimeout(() => ref.current.scrollIntoView({behavior: 'smooth', block: 'center'}), 0);
       },
       [commentsActions.addForm, oldSelect.sessionStatus]
@@ -65,7 +64,6 @@ function Comments() {
   };
   const dispatch = useDispatch();
   const { t } = useTranslate();
-  console.log(ref);
   const renders = {
     item: useCallback(
       (item) => {

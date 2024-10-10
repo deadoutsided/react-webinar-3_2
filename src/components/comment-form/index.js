@@ -18,7 +18,6 @@ const CommentForm = forwardRef((props, ref) => {
     // Отправка данных формы для авторизации
     onSubmit: useCallback(
       (e, text, level, list, article, currItem, profile) => {
-        console.log(profile)
         e.preventDefault();
         props.onSubmit(text, level, list, article, currItem, profile);
       },

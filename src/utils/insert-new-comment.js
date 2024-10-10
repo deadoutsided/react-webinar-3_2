@@ -1,7 +1,4 @@
 export default function insertNewComment(list, payloadData) {
-  console.log(list.findIndex(el => el._id === payloadData.parent._id))
-  console.log(list.findIndex(el => el._id === 'form'))
-  console.log(payloadData)
   payloadData.children = []
   if(list.length > 0 && list.findIndex(el => el._id === 'form') - list.findIndex(el => el._id === payloadData.parent._id) === 0){
       list.splice(
