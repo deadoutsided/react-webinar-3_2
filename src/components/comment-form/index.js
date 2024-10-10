@@ -13,7 +13,7 @@ const CommentForm = forwardRef((props, ref) => {
     // Колбэк на ввод в элементах формы
     onChange: useCallback((value) => {
       setText(value);
-    }, []), //  ///////////// TODODDDODODO! potenshially mojno vinesti state eshe wishe
+    }, []), // potentially state can be higher in component tree
 
     // Отправка данных формы для авторизации
     onSubmit: useCallback(

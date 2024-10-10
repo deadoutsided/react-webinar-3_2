@@ -19,12 +19,7 @@ function Comments() {
     data: state.comments?.data,
     count: state.comments?.count,
     article: state.article?.data,
-    currentItem: state.comments?.currentItem /*
-    page: state.catalog.params.page,
-    limit: state.catalog.params.limit,
-    sort: state.catalog.params.sort,
-    query: state.catalog.params.query,
-    count: state.catalog.count, */,
+    currentItem: state.comments?.currentItem,
     waiting: state.comments.waiting,
   }));
 
@@ -34,11 +29,6 @@ function Comments() {
   }));
 
   const callbacks = {
-    // TODO!!! here should be comments redux actions
-    // генератор ссылки для пагинатора
-    /* onItemLinkClick: useCallback((level) => {
-      setCurrent(level + 1);
-    }, setCurrent), */
     onItemClick: useCallback(
       (level, id) => {
         dispatch(commentsActions.addForm(level, id));
@@ -48,7 +38,6 @@ function Comments() {
       [commentsActions.addForm, oldSelect.sessionStatus]
     ),
     onFormCancel: useCallback(() => {
-      //event.preventDefault();
       dispatch(commentsActions.cancelForm());
     }, [commentsActions.cancelForm]),
     onFormSubmit: useCallback(

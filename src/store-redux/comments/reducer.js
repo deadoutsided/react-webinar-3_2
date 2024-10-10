@@ -64,7 +64,6 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true };
 
     case 'comment/send-success':
-      /* state.data = state.data.filter(item => item._id !== 'form'); */
       console.log(state.data);
       console.log(state.data.findIndex(el => el._id === action.payload.data.parent._id));
       insertNewComment(state.data, action.payload.data); //insert new item
