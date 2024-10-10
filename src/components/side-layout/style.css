@@ -31,3 +31,7 @@
 .SideLayout-item {
   margin: 0 5px;
 }
+
+.SideLayout .SideLayout-item_itemType_commentHeader:first-child {
+  margin: 0 10px 0 5px;
+}

@@ -1,0 +1,32 @@
+.CommentItem {
+  margin-bottom: 30px;
+}
+
+.CommentItem-username {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.CommentItem-date {
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0;
+  color: #666;
+}
+
+.CommentItem-text {
+  font-weight: 400;
+  font-size: 14px;
+  overflow-wrap: break-word;
+  margin: 10px 0;
+}
+
+.CommentItem-link {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.CommentItem-link:hover {
+  text-decoration: underline;
+}
