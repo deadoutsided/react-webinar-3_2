@@ -27,7 +27,7 @@ function Comments() {
 
   const oldSelect = useSelector((state) => ({
     sessionStatus: state.session.exists,
-    profile: state.profile.data,
+    profile: state?.profile?.data,
   }));
 
   const { t } = useTranslate();

@@ -17,7 +17,7 @@ function CommentItem(props) {
   return (
     <div style={{marginLeft: (30 * (props.item.level > 10 ? 10 : props.item.level)) + 'px'}} className={cn()}>
       <SideLayout side={'start'} itemType='commentHeader'>
-        <span className={props?.profile?.profile.name === props.item.author.profile.name ? cn('usernameSelf') : cn('username')}>{props.item.author.profile.name}</span>
+        <span className={props?.profile?.profile?.name === props.item.author.profile.name ? cn('usernameSelf') : cn('username')}>{props.item.author.profile.name}</span>
         <p className={cn('date')}>{convertDate({locale: props.lang, date: new Date(props.item.dateCreate), dateStyle: 'long', timeStyle: 'short'})}</p>
       </SideLayout>
       <p className={cn('text')}>{props.item.text}</p>
