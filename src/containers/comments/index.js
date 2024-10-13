@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef } from "react";
+import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useStore as useStoreRedux } from "react-redux";
 import { useSelector as useSelectorRedux } from "react-redux";
 import useTranslate from "../../hooks/use-translate";
@@ -11,6 +11,7 @@ import useSelector from "../../hooks/use-selector";
 import UnathorizedComment from "../../components/unathorized-comment";
 import commentsActions from "../../store-redux/comments/actions";
 import { useLocation } from "react-router-dom";
+import countLevels from "../../utils/count-levels";
 function Comments() {
   const store = useStoreRedux();
   const location = useLocation();
@@ -30,15 +31,24 @@ function Comments() {
   }));
 
   const { t } = useTranslate();
-  const lang = useLang()
+  const lang = useLang();
+
+  useEffect(() => {
+    console.log(select)
+    console.log(location)
+    console.log(answer)
+  }, [select]);
+
+  const [answer, setAnswer] = useState({});
 
   const callbacks = {
     onItemClick: useCallback(
       (level, id) => {
-        dispatch(commentsActions.addForm(level, id));
+        setAnswer({ level, id });
+        dispatch(commentsActions.addForm((level ? level : 0), (id ? id : article._id)));
         setTimeout(() => ref.current.scrollIntoView({behavior: 'smooth', block: 'center'}), 0);
       },
-      [commentsActions.addForm, oldSelect.sessionStatus]
+      [commentsActions.addForm, oldSelect.sessionStatus, location.state]
     ),
     onFormCancel: useCallback(() => {
       dispatch(commentsActions.cancelForm());
@@ -67,6 +77,11 @@ function Comments() {
     ),
     t: useCallback((text, num) => t(lang, text, num), [t, lang])
   };
+  useEffect(() => {
+    if(ref.current !== null && location.state !== null){
+      dispatch(commentsActions.addForm((location.state?.level ? location.state.level : 0), (location.state?.id ? location.state.id : select.currentItem)));
+      setTimeout(() => ref.current?.scrollIntoView({behavior: 'smooth', block: 'center'}), 0);}
+  }, [ref.current])
   const dispatch = useDispatch();
   const renders = {
     item: useCallback(
@@ -93,7 +108,7 @@ function Comments() {
               t={callbacks.t}
               link={"/login"}
               ref={ref}
-              state={{ back: location }}
+              state={{ back: location, answer: answer ? answer : {id: article.id, level: 0}}}
               level={item.level}
               onCancel={callbacks.onFormCancel}
             />
@@ -103,6 +118,7 @@ function Comments() {
           <CommentItem
             item={item}
             t={callbacks.t}
+            profile={oldSelect?.profile}
             onClick={(level, id) => {
               callbacks.onItemClick(level, id);
             }}
@@ -110,7 +126,7 @@ function Comments() {
           />
         );
       },
-      [t, lang, oldSelect.sessionStatus, select.article, select.currentItem, oldSelect.profile, select.data]
+      [t, lang, oldSelect.sessionStatus, select.article, select.currentItem, oldSelect, store, select.data]
     ),
   };
 

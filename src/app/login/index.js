@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
@@ -34,7 +34,7 @@ function Login() {
     login: '',
     password: '',
   });
-
+  useEffect(() => {console.log(location)})
   const callbacks = {
     // Колбэк на ввод в элементах формы
     onChange: useCallback((value, name) => {
@@ -51,7 +51,7 @@ function Login() {
             location.state?.back && location.state?.back !== location.pathname
               ? location.state?.back
               : '/';
-          navigate(back);
+          navigate(back, {state: location.state?.answer});
         });
       },
       [data, location.state],

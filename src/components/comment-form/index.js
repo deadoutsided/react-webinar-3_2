@@ -40,12 +40,12 @@ const CommentForm = forwardRef((props, ref) => {
         placeholder={props.t("add.comment.placeholder")}
       />
       {!props.cancel ? (
-        <button className={cn("button")} type="submit">
+        <button className={cn("button")} type="submit" disabled={!(text.length > 0)}>
           {props.t("add.comment.button")}
         </button>
       ) : (
         <SideLayout>
-          <button className={cn("button")} type="submit">
+          <button className={cn("button")} type="submit" disabled={!(text.length > 0)}>
             {props.t("add.comment.button")}
           </button>
           <button onClick={props.onCancel} type='button' className={cn("button")}>{props.t("cancel.comment.button")}</button>

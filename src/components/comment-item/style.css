@@ -7,6 +7,12 @@
   font-size: 12px;
 }
 
+.CommentItem-usernameSelf {
+  font-weight: 700;
+  font-size: 12px;
+  color: #666666;
+}
+
 .CommentItem-date {
   font-weight: 400;
   font-size: 12px;
