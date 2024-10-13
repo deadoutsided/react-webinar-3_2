@@ -1,3 +1,5 @@
+import * as translations from './i18n/translations';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
@@ -18,6 +20,9 @@ const config = {
   api: {
     baseUrl: '',
   },
+  i18n: {
+    translations,
+  }
 };
 
 export default config;

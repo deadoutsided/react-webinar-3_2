@@ -12,9 +12,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useInit from '../../hooks/use-init';
+import useLang from '../../hooks/use-lang';
 
 function Login() {
   const { t } = useTranslate();
+  const lang = useLang();
   const location = useLocation();
   const navigate = useNavigate();
   const store = useStore();
@@ -54,22 +56,23 @@ function Login() {
       },
       [data, location.state],
     ),
+    t: useCallback((text, num) => t(lang, text, num), [t, lang]),
   };
 
   return (
     <PageLayout>
       <TopHead />
-      <Head title={t('title')}>
+      <Head title={callbacks.t('title')}>
         <LocaleSelect />
       </Head>
       <Navigation />
       <SideLayout padding="medium">
         <form onSubmit={callbacks.onSubmit}>
-          <h2>{t('auth.title')}</h2>
-          <Field label={t('auth.login')} error={select.errors?.login}>
+          <h2>{callbacks.t('auth.title')}</h2>
+          <Field label={callbacks.t('auth.login')} error={select.errors?.login}>
             <Input name="login" value={data.login} onChange={callbacks.onChange} />
           </Field>
-          <Field label={t('auth.password')} error={select.errors?.password}>
+          <Field label={callbacks.t('auth.password')} error={select.errors?.password}>
             <Input
               name="password"
               type="password"
@@ -79,7 +82,7 @@ function Login() {
           </Field>
           <Field error={select.errors?.other} />
           <Field>
-            <button type="submit">{t('auth.signIn')}</button>
+            <button type="submit">{callbacks.t('auth.signIn')}</button>
           </Field>
         </form>
       </SideLayout>

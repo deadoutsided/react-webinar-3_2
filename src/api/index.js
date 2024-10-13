@@ -40,6 +40,7 @@ class APIService {
     } else if (this.defaultHeaders[name]) {
       delete this.defaultHeaders[name];
     }
+    console.log(this.defaultHeaders)
   }
 }
 

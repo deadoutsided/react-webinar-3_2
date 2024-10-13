@@ -36,7 +36,8 @@ function reducer(state = initialState, action) {
         state.data.splice(
           (state.data.findLastIndex(el => el.parent._id === action.payload.id) === -1
             ? state.data.findLastIndex(el => el._id === action.payload.id)
-            : state.data.findLastIndex(el => el.parent._id === action.payload.id) + countLevels(state.data, action.payload.id)) + (1),
+            : state.data.findLastIndex(el => el.parent._id === action.payload.id) +
+              countLevels(state.data, action.payload.id)) + 1,
           0,
           { _id: 'form', level: action.payload.level + 1, cancel: true },
         );

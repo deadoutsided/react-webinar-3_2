@@ -7,6 +7,7 @@ import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
+import useLang from '../../hooks/use-lang';
 
 function CatalogFilter() {
   const store = useStore();
@@ -17,6 +18,9 @@ function CatalogFilter() {
     category: state.catalog.params.category,
     categories: state.categories.list,
   }));
+
+  const { t } = useTranslate();
+  const lang = useLang();
 
   const callbacks = {
     // Сортировка
@@ -34,6 +38,7 @@ function CatalogFilter() {
         }),
       [store],
     ),
+    t: useCallback((text, num) => t(lang,text,num), [t, lang])
   };
 
   const options = {
@@ -60,7 +65,6 @@ function CatalogFilter() {
     ),
   };
 
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding="medium">
@@ -77,7 +81,7 @@ function CatalogFilter() {
         delay={1000}
         theme={'big'}
       />
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      <button onClick={callbacks.onReset}>{callbacks.t('filter.reset')}</button>
     </SideLayout>
   );
 }

@@ -2,6 +2,7 @@ import { memo, useCallback, useRef } from "react";
 import { useDispatch, useStore as useStoreRedux } from "react-redux";
 import { useSelector as useSelectorRedux } from "react-redux";
 import useTranslate from "../../hooks/use-translate";
+import useLang from "../../hooks/use-lang";
 import CommentsList from "../../components/comments-list";
 import Spinner from "../../components/spinner";
 import CommentItem from "../../components/comment-item";
@@ -27,6 +28,9 @@ function Comments() {
     sessionStatus: state.session.exists,
     profile: state.profile.data,
   }));
+
+  const { t } = useTranslate();
+  const lang = useLang()
 
   const callbacks = {
     onItemClick: useCallback(
@@ -61,9 +65,9 @@ function Comments() {
       },
       [commentsActions.submit]
     ),
+    t: useCallback((text, num) => t(lang, text, num), [t, lang])
   };
   const dispatch = useDispatch();
-  const { t } = useTranslate();
   const renders = {
     item: useCallback(
       (item) => {
@@ -79,14 +83,14 @@ function Comments() {
               list={select.data}
               ref={ref}
               profile={oldSelect.profile}
-              t={t}
+              t={callbacks.t}
             />
           );
         }
         if (item._id === "form") {
           return (
             <UnathorizedComment
-              t={t}
+              t={callbacks.t}
               link={"/login"}
               ref={ref}
               state={{ back: location }}
@@ -98,14 +102,15 @@ function Comments() {
         return (
           <CommentItem
             item={item}
-            t={t}
+            t={callbacks.t}
             onClick={(level, id) => {
               callbacks.onItemClick(level, id);
             }}
+            lang={lang}
           />
         );
       },
-      [t, oldSelect.sessionStatus, select.article, select.currentItem, oldSelect.profile, select.data]
+      [t, lang, oldSelect.sessionStatus, select.article, select.currentItem, oldSelect.profile, select.data]
     ),
   };
 
@@ -115,7 +120,7 @@ function Comments() {
         list={select.data}
         count={select.count}
         renderItem={renders.item}
-        t={t}
+        t={callbacks.t}
       />
     </Spinner>
   );

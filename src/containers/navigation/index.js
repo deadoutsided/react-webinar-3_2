@@ -7,6 +7,7 @@ import BasketTool from '../../components/basket-tool';
 import SideLayout from '../../components/side-layout';
 import { useDispatch } from 'react-redux';
 import modalsActions from '../../store-redux/modals/actions';
+import useLang from '../../hooks/use-lang';
 
 function Navigation() {
   const store = useStore();
@@ -16,6 +17,10 @@ function Navigation() {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  // Функция для локализации текстов
+  const i18n = useTranslate();
+  const lang = useLang();
 
   const callbacks = {
     // Открытие модалки корзины
@@ -31,13 +36,12 @@ function Navigation() {
       },
       [store],
     ),
+
+    t: useCallback((text, number) => i18n.t(lang, text, number), [i18n.t, lang]),
   };
 
-  // Функция для локализации текстов
-  const { t } = useTranslate();
-
   const options = {
-    menu: useMemo(() => [{ key: 1, title: t('menu.main'), link: '/' }], [t]),
+    menu: useMemo(() => [{ key: 1, title: callbacks.t('menu.main'), link: '/' }], [i18n.t, lang]),
   };
 
   return (
@@ -47,7 +51,7 @@ function Navigation() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        t={t}
+        t={callbacks.t}
       />
     </SideLayout>
   );

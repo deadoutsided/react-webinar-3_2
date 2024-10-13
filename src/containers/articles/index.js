@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import shallowequal from "shallowequal";
 import articleActions from "../../store-redux/article/actions";
 import commentsActions from "../../store-redux/comments/actions";
+import useLang from "../../hooks/use-lang";
 
 function Articles() {
   const store = useStore();
@@ -26,7 +27,8 @@ function Articles() {
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  const { t } = useTranslate();
+  const {t} = useTranslate();
+  const lang = useLang()
 
   const callbacks = {
     // Добавление в корзину
@@ -34,6 +36,8 @@ function Articles() {
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
+
+    t: useCallback((text, number) => t(lang, text, number), [t, lang]),
   };
 
   return (
@@ -46,7 +50,7 @@ function Articles() {
         <ArticleCard
           article={select.article}
           onAdd={callbacks.addToBasket}
-          t={t}
+          t={callbacks.t}
         />
       </Spinner>
     </>

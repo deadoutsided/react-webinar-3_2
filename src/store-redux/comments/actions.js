@@ -4,10 +4,10 @@ export default {
    * @param id
    * @return {Function}
    */
-  load: (id) => {
+  load: id => {
     return async (dispatch, getState, services) => {
       // Сброс текущих комментов и установка признака ожидания загрузки
-      dispatch({ type: "comments/load-start" });
+      dispatch({ type: 'comments/load-start' });
 
       try {
         const res = await services.api.request({
@@ -15,12 +15,12 @@ export default {
         });
         // комменты загружены успешно
         dispatch({
-          type: "comments/load-success",
+          type: 'comments/load-success',
           payload: { data: res.data.result },
         });
       } catch (e) {
         //Ошибка загрузки
-        dispatch({ type: "comments/load-error" });
+        dispatch({ type: 'comments/load-error' });
       }
     };
   },
@@ -29,25 +29,24 @@ export default {
 
     {
       return {
-        type: "comments/add-form",
+        type: 'comments/add-form',
         payload: { level, id },
       };
     },
 
-  cancelForm: () =>
-    {
-      return {
-        type: "comments/cancel-form",
-      };
-    },
+  cancelForm: () => {
+    return {
+      type: 'comments/cancel-form',
+    };
+  },
   submit: (newCommentData, level, list, article, currItem, profile) => {
     return async (dispatch, getState, services) => {
-      dispatch({ type: "comment/send-start" });
+      dispatch({ type: 'comment/send-start' });
       let parent = {};
       if (currItem !== article._id && currItem !== undefined) {
         parent = {
-          _id: list[list.findIndex((el) => el._id === currItem)]._id,
-          _type: "comment",
+          _id: list[list.findIndex(el => el._id === currItem)]._id,
+          _type: 'comment',
         };
       }
       if (currItem === undefined) {
@@ -57,17 +56,19 @@ export default {
         const res = await services.api.request({
           url: `/api/v1/comments`,
 
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify({ text: newCommentData.text, parent: parent }),
         });
         // коммент загружен успешно
         dispatch({
-          type: "comment/send-success",
-          payload: { data: {...res.data.result, level, author: {...res.data.result.author, profile}, } },
+          type: 'comment/send-success',
+          payload: {
+            data: { ...res.data.result, level, author: { ...res.data.result.author, profile } },
+          },
         });
       } catch (e) {
         //Ошибка загрузки
-        dispatch({ type: "comment/send-error" });
+        dispatch({ type: 'comment/send-error' });
       }
     };
   },

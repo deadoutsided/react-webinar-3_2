@@ -6,9 +6,12 @@ import Item from '../../components/item';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import Spinner from '../../components/spinner';
+import useLang from '../../hooks/use-lang';
 
 function CatalogList() {
   const store = useStore();
+  const { t } = useTranslate();
+  const lang = useLang();
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -37,9 +40,8 @@ function CatalogList() {
       },
       [select.limit, select.sort, select.query],
     ),
+    t: useCallback((text, num) => t(lang, text, num), [t, lang]),
   };
-
-  const { t } = useTranslate();
 
   const renders = {
     item: useCallback(
@@ -48,10 +50,10 @@ function CatalogList() {
           item={item}
           onAdd={callbacks.addToBasket}
           link={`/articles/${item._id}`}
-          labelAdd={t('article.add')}
+          labelAdd={callbacks.t('article.add')}
         />
       ),
-      [callbacks.addToBasket, t],
+      [callbacks.addToBasket, callbacks.t],
     ),
   };
 

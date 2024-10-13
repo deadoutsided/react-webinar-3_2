@@ -12,9 +12,17 @@ import ArticleCard from '../../components/article-card';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import ProfileCard from '../../components/profile-card';
+import useLang from '../../hooks/use-lang';
 
 function Profile() {
   const store = useStore();
+
+  const { t } = useTranslate();
+  const lang = useLang();
+
+  const callbacks = {
+    t: useCallback((text, num) => t(lang, text, num), [t, lang]),
+  }
 
   useInit(() => {
     store.actions.profile.load();
@@ -25,12 +33,10 @@ function Profile() {
     waiting: state.profile.waiting,
   }));
 
-  const { t } = useTranslate();
-
   return (
     <PageLayout>
       <TopHead />
-      <Head title={t('title')}>
+      <Head title={callbacks.t('title')}>
         <LocaleSelect />
       </Head>
       <Navigation />

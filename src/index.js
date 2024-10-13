@@ -10,16 +10,16 @@ import config from './config';
 const services = new Services(config);
 
 const root = createRoot(document.getElementById('root'));
-
+console.log(services);
 // Первый рендер приложения
 root.render(
   <Provider store={services.redux}>
     <ServicesContext.Provider value={services}>
-      <I18nProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </I18nProvider>
+      {/* <I18nProvider> */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+      {/* </I18nProvider> */}
     </ServicesContext.Provider>
   </Provider>,
 );

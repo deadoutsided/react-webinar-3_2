@@ -6,6 +6,7 @@ function Select(props) {
   const { onChange = () => {} } = props;
   const onSelect = e => {
     props.onChange(e.target.value);
+    /* props.value = e.target.value; */
   };
 
   return (
